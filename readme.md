@@ -12,4 +12,4 @@ Posible TODO if demand,
 - Customizations of locations options 
 
 
-NOW PUBLISHED ON WEBSTORE 
+SOON TO BE PUBLISHED ON WEBSTORE 
