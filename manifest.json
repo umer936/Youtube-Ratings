@@ -1,15 +1,14 @@
 {
   "name": "Ratings",
-  "version": "1.0",
+  "version": "2.5",
   "manifest_version": 2,
-  "description": "See ratings on YouTube.",
-  "browser_action": {
-    "default_icon": "icon.png",
-    "default_popup": "popup.html"
+  "description": "See ratings on YouTube's sidebar.",
+  "icons": {
+    "128": "icon.png"
   },
   "content_scripts": [
      {
-       "matches": ["http://www.youtube.com/watch?v=*"],
+       "matches": ["*://*.youtube.com/watch?v=*"],
        "js": ["jquery.js", "ratings.js"],
        "run_at": "document_end"
      }

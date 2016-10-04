@@ -1,33 +1,15 @@
-var process = function(item){
-  return function(data, textStatus){
-    var likes = parseInt(($('.likes', data)[0].innerHTML).replace(',', ''));
-    var dislikes = parseInt(($('.dislikes', data)[0].innerHTML).replace(',', ''));
-    var total = likes + dislikes;
-    var ratio = likes / total;
-    node = $(document.createElement('div'));
-    node.css({'height': '4px', 'width': '100px', 'background': 'red', 'display': 'inline', 'overflow': 'hidden', 'position': 'absolute', 'left': '133px'})
-    inner = $(document.createElement('div'));
-    inner.css({'height': '4px', 'width': ratio * 100 + "px", 'background': 'green', 'display': 'inline', 'overflow': 'hidden', 'position': 'absolute'})
-    item.append(node);
-    $(node).prepend(inner);
-  };
-};
+$('.related-list-item').each(function() {
+  var video = $(this).find('a').attr('href');
+  var url = video.substr(video.indexOf("=") + 1);
 
-var go = function(){
-  var links = $('.related-video');
-  for(var linkIndex in links){
-    var item = $(links[linkIndex]);
-    var url = item.attr('href');    
-    if(url === undefined){
-      break;
-    }
-    
-    $.get("http://www.youtube.com" + url,
-           process(item),
-           true,
-           "text"
-    );
-  }  
-}
-
-go()
+  $.get("https://www.googleapis.com/youtube/v3/videos?part=statistics&id=" + url + "&key=AIzaSyD93BBY4M3N9zn0szQ-vcZ2qPYx3jS35SU",
+    function(data) {
+      var likes = parseInt(data.items[0].statistics.likeCount, 10);
+      var dislikes = parseInt(data.items[0].statistics.dislikeCount, 10);
+      var total = parseInt(likes + dislikes, 10);
+      $("<hr style='height:1em; visibility:hidden;' /><div class='video-extras-sparkbars' style='width: 100%'><div class='video-extras-sparkbar-likes' style='width: " + 100 * (likes / (total)) + "%'></div><div class='video-extras-sparkbar-dislikes' style='width: " + 100 * (dislikes / (total)) + "%'></div></div>").insertAfter("a[href='" + video + "'] span.stat.view-count");
+    },
+    true,
+    "json"
+  );
+});
