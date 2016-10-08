@@ -1,10 +1,12 @@
 {
   "name": "Ratings",
-  "version": "2.5",
+  "version": "2.6",
   "manifest_version": 2,
-  "description": "See ratings on YouTube's sidebar.",
+  "description": "See ratings on YouTube's sidebar",
   "icons": {
-    "128": "icon.png"
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   },
   "content_scripts": [
      {
